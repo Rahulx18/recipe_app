@@ -1,0 +1,91 @@
+/* Header Container */
+.header-container {
+  background-color: #333333; /* Onyx background for header */
+  color: #f9f0e6; /* Linen text color */
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  position: relative;
+  height: 5rem;
+  color: #f9f0e6; /* Linen */
+}
+
+/* Sidebar Toggler Styles */
+.sidebar-toggler {
+  background-color: #333333; /* Onyx */
+  color: #f9f0e6; /* Linen */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem; /* Rounded corners */
+  cursor: pointer;
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  z-index: 1001; /* Ensure it's above the sidebar */
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.sidebar-toggler:hover {
+  background-color: #1a1a1a; /* Darker Onyx for hover */
+}
+
+.sidebar-toggler:focus {
+  outline: none; /* Remove default outline for focused state */
+}
+
+/* Logo Styles */
+.logo img {
+  height: 4rem;
+  width: auto;
+}
+
+/* Right Section Styles */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Search Button Styles */
+.search-button {
+  background: none;
+  border: none;
+  color: #f9f0e6; /* Linen */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  color: #e0e0e0; /* Slightly lighter Linen for hover */
+}
+
+/* User Icon Styles */
+.user-icon {
+  background: none;
+  border: none;
+  color: #f9f0e6; /* Linen */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.user-icon:hover {
+  color: #e0e0e0; /* Slightly lighter Linen for hover */
+}
+
+/* Welcome Note Styles */
+.welcome-note {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Overlay Styles */
+.SearchOverlay,
+.AuthOverlay {
+  z-index: 1000; /* Ensure overlays are above other content */
+}

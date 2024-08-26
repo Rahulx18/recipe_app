@@ -1,0 +1,122 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #333333; /* Onyx Dark Grey */
+  color: #f9f0e6; /* Linen */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Poppins", sans-serif;
+  color: #4a90e2; /* Primary Blue */
+}
+
+.landing-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #4a90e2; /* Primary Blue */
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.section-divider {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border: none;
+  border-top: 2px solid #4a90e2; /* Primary Blue */
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.embed-container {
+  position: relative;
+  width: 70%;
+  padding-bottom: 40%; /* 16:9 aspect ratio */
+  margin: 0 auto;
+  border: 2px solid #4a90e2; /* Primary Blue */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-description {
+  margin-top: 1rem;
+  text-align: left;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.video-description h3 {
+  font-size: 1.5rem;
+  color: #4a90e2; /* Primary Blue */
+  margin-bottom: 0.5rem;
+}
+
+.video-description p {
+  font-size: 1.2rem;
+  color: #f9f0e6; /* Linen */
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.recipe-card,
+.blog-card {
+  flex: 1;
+  min-width: 18rem;
+  background-color: #ffffff; /* White */
+  color: #333333; /* Onyx Dark Grey */
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border: 2px solid #4a90e2; /* Primary Blue */
+}
+
+.recipe-card h3,
+.blog-card h3 {
+  font-size: 1.25rem;
+  color: #333333; /* Onyx Dark Grey */
+  margin-bottom: 0.5rem;
+}
+
+.recipe-card p,
+.blog-card p {
+  font-size: 1rem;
+  color: #f9f0e6; /* Linen */
+}
+
+.recipe-card a,
+.blog-card a {
+  margin-top: 1rem;
+  display: inline-block;
+  background-color: #4a90e2; /* Primary Blue */
+  color: #ffffff; /* White */
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+}
+
+.recipe-card a:hover,
+.blog-card a:hover {
+  background-color: #357abd; /* Darker Blue */
+}

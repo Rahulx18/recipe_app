@@ -1,0 +1,63 @@
+/* General content styling for all sections */
+.content {
+  margin-top: 2rem;
+}
+
+/* Card styling shared across blogs, videos, and recipes */
+.card {
+  border: none;
+  border-radius: 0.5rem; /* Consistent radius */
+  background-color: #f9f0e6; /* Linen */
+  color: #333333; /* Onyx */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Title styling */
+.card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #000000; /* Black */
+  margin-bottom: 0.5rem;
+}
+
+/* Card image styling for consistent sizing */
+.card-image {
+  max-height: 200px; /* Control the max height for images */
+  object-fit: cover; /* Ensures the image fits well without distortion */
+  border-top-left-radius: 0.5rem; /* Match card radius */
+  border-top-right-radius: 0.5rem; /* Match card radius */
+}
+
+/* Footer styling consistent across cards */
+.card-footer {
+  border-top: none;
+  padding: 0.75rem 1rem;
+  background-color: #f9f0e6; /* Linen */
+  color: #333333; /* Onyx */
+}
+
+/* Styling for buttons within the footer */
+.button-link {
+  text-decoration: none;
+  color: #333333; /* Onyx */
+}
+
+.button-link:hover {
+  text-decoration: underline;
+}
+
+/* Badge styling */
+.badge {
+  font-size: 0.85rem;
+  background-color: #333333; /* Onyx */
+  color: #f9f0e6; /* Linen */
+  border-radius: 0.25rem; /* Slightly rounded corners */
+  padding: 0.2rem 0.5rem;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .card-image {
+    max-height: 150px; /* Adjust the max height for smaller screens */
+  }
+}
