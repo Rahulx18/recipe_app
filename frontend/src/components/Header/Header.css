@@ -3,18 +3,10 @@
   background-color: #333333; /* Onyx background for header */
   color: #f9f0e6; /* Linen text color */
 }
-
-/* Header Styles */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  position: relative;
-  height: 5rem;
-  color: #f9f0e6; /* Linen */
+.header.closed {
+  left: 0;
+  width: 100%; /* Full width when sidebar is closed */
 }
-
 /* Sidebar Toggler Styles */
 .sidebar-toggler {
   background-color: #333333; /* Onyx */
