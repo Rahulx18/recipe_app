@@ -13,14 +13,14 @@ const config = {
     "Content-Type": "application/json",
   },
 };
-
+const API_URL = process.env.REACT_APP_API_URL;
 // Login Action
 export const login = (email, password) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
   try {
     const { data } = await axios.post(
-      "http://localhost:3000/api/login",
+      `${API_URL}/login`,
       { email, password },
       config
     );
@@ -43,7 +43,7 @@ export const register = (name, email, password) => async (dispatch) => {
 
   try {
     const { data } = await axios.post(
-      "http://localhost:3000/api/register",
+      `${API_URL}/register`,
       { name, email, password },
       config
     );

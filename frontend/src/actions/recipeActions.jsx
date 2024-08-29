@@ -2,7 +2,7 @@ import axios from "axios";
 import { FETCH_RECIPES_FAILURE } from "../constants";
 import { FETCH_RECIPES_SUCCESS } from "../constants";
 import { FETCH_RECIPES_REQUEST } from "../constants";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export const fetchRecipes = () => async (dispatch) => {
   dispatch({ type: FETCH_RECIPES_REQUEST });
   try {
@@ -11,10 +11,7 @@ export const fetchRecipes = () => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.get(
-      "http://localhost:3000/api/recipes",
-      config
-    );
+    const { data } = await axios.get(`${API_URL}/recipes`, config);
 
     dispatch({
       type: FETCH_RECIPES_SUCCESS,

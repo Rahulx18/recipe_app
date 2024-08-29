@@ -4,7 +4,7 @@ import {
   FETCH_BLOGS_SUCCESS,
   FETCH_BLOGS_FAILURE,
 } from "../constants";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export const fetchBlogs = () => async (dispatch) => {
   dispatch({ type: FETCH_BLOGS_REQUEST });
 
@@ -14,7 +14,7 @@ export const fetchBlogs = () => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.get("http://localhost:3000/api/blogs", config);
+    const { data } = await axios.get(`${API_URL}/blogs`, config);
     dispatch({ type: FETCH_BLOGS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

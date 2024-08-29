@@ -4,7 +4,7 @@ import {
   FETCH_VIDEOS_SUCCESS,
   FETCH_VIDEOS_FAILURE,
 } from "../constants/";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export const fetchVideos = () => async (dispatch) => {
   dispatch({ type: FETCH_VIDEOS_REQUEST });
 
@@ -14,10 +14,7 @@ export const fetchVideos = () => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-    const { data } = await axios.get(
-      "http://localhost:3000/api/videos",
-      config
-    );
+    const { data } = await axios.get(`${API_URL}/videos`, config);
 
     dispatch({ type: FETCH_VIDEOS_SUCCESS, payload: data });
   } catch (error) {
