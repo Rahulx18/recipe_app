@@ -13,7 +13,7 @@ const config = {
     "Content-Type": "application/json",
   },
 };
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_PROD_URL;
 // Login Action
 export const login = (email, password) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });

@@ -14,7 +14,7 @@ const Blogs = () => {
   useEffect(() => {
     dispatch(fetchBlogs());
   }, [dispatch]);
-
+  console.log(blogs);
   const hasResults = (results) => results && results.length > 0;
 
   const handleFavoriteToggle = (blogId) => {

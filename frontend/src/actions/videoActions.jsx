@@ -4,7 +4,7 @@ import {
   FETCH_VIDEOS_SUCCESS,
   FETCH_VIDEOS_FAILURE,
 } from "../constants/";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_PROD_URL;
 export const fetchVideos = () => async (dispatch) => {
   dispatch({ type: FETCH_VIDEOS_REQUEST });
 

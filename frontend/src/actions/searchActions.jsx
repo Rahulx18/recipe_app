@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_PROD_URL;
 export const searchQuery = (query) => async (dispatch) => {
   try {
     dispatch({ type: "SEARCH_REQUEST" });
