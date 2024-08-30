@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "serve": "serve -s dist"
+    "serve": "serve -s dist",
+"start": "vite"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
