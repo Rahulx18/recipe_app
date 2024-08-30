@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Landingpage from "./components/Landingpage/Landingpage";
+import LandingPage from "./components/LandingPage/LandingPage";
 import Recipes from "./Pages/Recipes";
 import Blogs from "./Pages/Blogs";
 import Videos from "./Pages/Videos";
@@ -45,7 +45,7 @@ const App = () => {
           <main className="main-content">
             <img src={bannerImg} alt="Banner" className="banner-image" />
             <Routes>
-              <Route path="/" element={<Landingpage />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/videos" element={<Videos />} />
