@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Button, Carousel } from "react-bootstrap";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import "./LandingPage.css";
+import "./Landingpage.css";
 import { fetchRecipes } from "../../actions/recipeActions";
 import { fetchBlogs } from "../../actions/blogActions";
 import { fetchVideos } from "../../actions/videoActions";
