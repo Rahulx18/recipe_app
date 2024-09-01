@@ -25,7 +25,7 @@ html {
   overflow-y: auto;
   width: 15vw;
   padding-top: 1rem;
-  background-color: #d9534f; /* Onyx */
+  background-color: #333; /* Onyx */
   color: #fff; /* Linen */
   transition: transform 0.3s ease;
 }
