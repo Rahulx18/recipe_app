@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
-import LandingPage from "./components/Landingpage/Landingpage";
+import LandingPage from "./components/LandingPage/Landingpage";
 import Recipes from "./Pages/Recipes";
 import Blogs from "./Pages/Blogs";
 import Videos from "./Pages/Videos";
