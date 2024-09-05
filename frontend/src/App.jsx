@@ -11,7 +11,7 @@ import Blogs from "./Pages/Blogs";
 import Videos from "./Pages/Videos";
 import bannerImg from "./BANNER_FINAL_3.png";
 import ReactGA from "react-ga4";
-ReactGA.initialize(import.meta.env.REACT_APP_GA_TRACKING_ID);
+ReactGA.initialize("G-25V5FZJ7BB");
 ReactGA.send("pageview");
 
 const App = () => {
