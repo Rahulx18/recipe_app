@@ -10,6 +10,9 @@ import Recipes from "./Pages/Recipes";
 import Blogs from "./Pages/Blogs";
 import Videos from "./Pages/Videos";
 import bannerImg from "./BANNER_FINAL_3.png";
+import ReactGA from "react-ga4";
+ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
+ReactGA.send("pageview");
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
