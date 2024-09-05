@@ -2,9 +2,11 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./Footer.css";
 
-const Footer = () => {
+const Footer = ({ isSidebarOpen }) => {
   return (
-    <footer className="footer">
+    <footer
+      className={`footer ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
+    >
       <Container>
         <Row>
           <Col md={6}>

@@ -1,37 +1,3 @@
-/* Header Container */
-.header-container {
-  background-color: #333333; /* Onyx background for header */
-  color: #f9f0e6; /* Linen text color */
-}
-.header.closed {
-  left: 0;
-  width: 100%; /* Full width when sidebar is closed */
-}
-/* Sidebar Toggler Styles */
-.sidebar-toggler {
-  background-color: #333333; /* Onyx */
-  color: #f9f0e6; /* Linen */
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem; /* Rounded corners */
-  cursor: pointer;
-  position: absolute;
-  top: 0.75rem;
-  left: 1rem;
-  z-index: 1001; /* Ensure it's above the sidebar */
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.sidebar-toggler:hover {
-  background-color: #1a1a1a; /* Darker Onyx for hover */
-}
-
-.sidebar-toggler:focus {
-  outline: none; /* Remove default outline for focused state */
-}
-
-/* Logo Styles */
 .logo img {
   height: 4rem;
   width: auto;
@@ -48,7 +14,7 @@
 .search-button {
   background: none;
   border: none;
-  color: #f9f0e6; /* Linen */
+  color: #333;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -61,7 +27,7 @@
 .user-icon {
   background: none;
   border: none;
-  color: #f9f0e6; /* Linen */
+  color: #333;
   font-size: 1.5rem;
   cursor: pointer;
 }

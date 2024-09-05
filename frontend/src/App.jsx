@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -12,36 +12,44 @@ import Videos from "./Pages/Videos";
 import bannerImg from "./BANNER_FINAL_3.png";
 
 const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   const handleSidebarToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        setIsSidebarOpen(true);
-      } else {
-        setIsSidebarOpen(false);
-      }
-    };
+  const handleClickOutside = (event) => {
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      setIsSidebarOpen(false);
+    }
+  };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSidebarOpen]);
 
   return (
     <BrowserRouter>
       <div className="App">
-        <Sidebar isSidebarOpen={isSidebarOpen} />
-        <div
-          className={`content-container ${isSidebarOpen ? "open" : "closed"}`}
-        >
-          <Header
+        <div ref={sidebarRef}>
+          <Sidebar
             isSidebarOpen={isSidebarOpen}
             handleSidebarToggle={handleSidebarToggle}
           />
+        </div>
+        <div
+          className={`content-container ${isSidebarOpen ? "open" : "closed"}`}
+        >
+          <Header isSidebarOpen={isSidebarOpen} />
           <main className="main-content">
             <img src={bannerImg} alt="Banner" className="banner-image" />
             <Routes>
@@ -52,7 +60,7 @@ const App = () => {
             </Routes>
           </main>
         </div>
-        <Footer />
+        <Footer isSidebarOpen={isSidebarOpen} />
       </div>
     </BrowserRouter>
   );

@@ -1,0 +1,17 @@
+.footer .social-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer .social-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer .social-links li a {
+  color: #d9534f; /* Hover color */
+  text-decoration: none;
+}
+
+.footer .social-links li a:hover {
+  text-decoration: underline;
+}

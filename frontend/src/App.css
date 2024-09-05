@@ -17,56 +17,57 @@ html {
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 100;
   overflow-y: auto;
   width: 15vw;
-  padding-top: 1rem;
   background-color: #333; /* Onyx */
   color: #fff; /* Linen */
   transition: transform 0.3s ease;
 }
 
 .header {
-  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 5rem;
+  height: 6rem;
   position: fixed;
   top: 0;
-  left: 15vw;
-  width: calc(100% - 15vw);
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  background-color: #fff; /* Onyx */
+  left: 0;
+  padding-left: 5rem;
+  width: 100%;
+  z-index: 10;
+  background-color: #fff;
   transition: left 0.3s ease, width 0.3s ease;
   border: 2px solid rgb(63, 204, 190);
 }
 
 .content-container {
-  margin-top: 5rem; /* Adjusted margin-top to ensure content below header */
-  margin-left: 15vw;
+  margin-left: 5rem;
+  margin-top: 6rem;
+  width: 100%;
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
   background-color: #f9f0e6; /* Linen */
   color: #333333; /* Onyx */
-  transition: margin-left 0.3s ease, width 0.3s ease;
   border: 2px solid red;
 }
 
 .content-container.closed {
-  margin-left: 0; /* No margin when sidebar is closed */
+  margin-left: 5rem;
   width: 100%; /* Content container takes full width */
 }
 
 .footer {
   position: relative;
   text-align: center;
+
   padding: 1rem;
   background-color: #d9534f;
   color: #fff;
@@ -84,18 +85,34 @@ html {
   height: 300px;
   object-fit: cover;
 }
+@media (max-width: 768px) {
+  .content-container {
+    border: 2px solid green;
+  }
+  .sidebar {
+    width: 50vw;
+  }
+}
+@media (max-width: 480px) {
+  .content-container {
+    border: 2px solid rgb(7, 18, 226);
+  }
+  .sidebar {
+    width: 50vw;
+  }
+}
+/*
 
-/* Media Queries for responsiveness */
 @media (max-width: 768px) {
   .sidebar {
     width: 70vw;
-    margin-top: 5rem;
   }
 
   .header {
     width: 100%;
     left: 0;
     height: 5rem;
+    border: 2px solid black;
   }
 
   .content-container {
@@ -116,3 +133,5 @@ html {
     height: 8rem;
   }
 }
+
+*/

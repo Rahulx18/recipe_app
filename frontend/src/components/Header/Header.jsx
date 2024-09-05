@@ -6,7 +6,7 @@ import AuthOverlay from "../../utility/AuthOverlay";
 import "./Header.css";
 import logo from "./Udta Rasoiya Logo.png";
 
-const Header = ({ isSidebarOpen, handleSidebarToggle }) => {
+const Header = ({ isSidebarOpen }) => {
   const [showSearchOverlay, setShowSearchOverlay] = useState(false);
   const [showAuthOverlay, setShowAuthOverlay] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,14 +25,6 @@ const Header = ({ isSidebarOpen, handleSidebarToggle }) => {
     <header className="header-container">
       <Navbar className={`header ${isSidebarOpen ? "open" : "closed"}`}>
         <Container>
-          <div className="header-toggler-wrapper">
-            <button
-              className={`sidebar-toggler ${isSidebarOpen ? "open" : "closed"}`}
-              onClick={handleSidebarToggle}
-            >
-              {isSidebarOpen ? "×" : "☰"}
-            </button>
-          </div>
           <div className="logo">
             <img src={logo} alt="Udta Rasoiya Logo" />
           </div>
