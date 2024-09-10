@@ -13,8 +13,8 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests from your frontend
-    credentials: true, // If you're using cookies or sessions
+    origin: "http://localhost:3000",
+    credentials: true,
   })
 );
 app.use(express.json());
