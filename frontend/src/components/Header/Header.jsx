@@ -41,7 +41,7 @@ const Header = ({ isSidebarOpen }) => {
             </button>
             {userInfo ? (
               <div className="welcome-note">
-                Welcome, {userInfo.name}!
+                Welcome, {userInfo.username}!
                 <button className="logout-button" onClick={handleLogout}>
                   <FaSignOutAlt /> Logout
                 </button>
