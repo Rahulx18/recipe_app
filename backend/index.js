@@ -8,15 +8,31 @@ const authRoutes = require("./3_routes/authRoutes");
 const adminRoutes = require("./3_routes/adminRoutes");
 const dotenv = require("dotenv");
 const cors = require("cors");
+
 dotenv.config();
 connectDB();
+
 const app = express();
+
+const allowedOrigins = [
+  "http://localhost:3000", // Local development
+  "https://www.udtarasoiya.com", // Production domain
+  "https://recipe-hlcgbf64d-rahulx18s-projects.vercel.app", // Vercel deployment
+];
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
