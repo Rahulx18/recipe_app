@@ -1,0 +1,30 @@
+.admin-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.admin-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.admin-button {
+  background-color: #d9534f;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px;
+}
+
+.admin-button:hover {
+  background-color: #c9302c;
+}
+
+.admin-button:focus {
+  outline: none;
+}

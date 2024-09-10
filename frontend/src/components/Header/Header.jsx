@@ -1,24 +1,28 @@
-import React, { useState } from "react";
-import { FaSearch, FaUser } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaSearch, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Container, Navbar } from "react-bootstrap";
 import SearchOverlay from "../../utility/SearchOverlay";
-import AuthOverlay from "../../utility/AuthOverlay";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../actions/authActions";
 import "./Header.css";
 import logo from "./Udta Rasoiya Logo.png";
 
 const Header = ({ isSidebarOpen }) => {
   const [showSearchOverlay, setShowSearchOverlay] = useState(false);
-  const [showAuthOverlay, setShowAuthOverlay] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSearchClick = () => setShowSearchOverlay(true);
-  const handleAuthClick = () => setShowAuthOverlay(true);
-  const closeSearchOverlay = () => setShowSearchOverlay(false);
-  const closeAuthOverlay = () => setShowAuthOverlay(false);
+  const auth = useSelector((state) => state.auth);
+  const { userInfo } = auth;
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    closeAuthOverlay();
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
   };
 
   return (
@@ -29,22 +33,29 @@ const Header = ({ isSidebarOpen }) => {
             <img src={logo} alt="Udta Rasoiya Logo" />
           </div>
           <div className="right-section">
-            <button className="search-button" onClick={handleSearchClick}>
+            <button
+              className="search-button"
+              onClick={() => setShowSearchOverlay(true)}
+            >
               <FaSearch />
             </button>
-            {isLoggedIn ? (
-              <div className="welcome-note">Welcome, User!</div>
+            {userInfo ? (
+              <div className="welcome-note">
+                Welcome, {userInfo.name}!
+                <button className="logout-button" onClick={handleLogout}>
+                  <FaSignOutAlt /> Logout
+                </button>
+              </div>
             ) : (
-              <button className="user-icon" onClick={handleAuthClick}>
+              <button className="user-icon" onClick={handleLoginClick}>
                 <FaUser />
               </button>
             )}
           </div>
         </Container>
       </Navbar>
-      {showSearchOverlay && <SearchOverlay Close={closeSearchOverlay} />}
-      {showAuthOverlay && (
-        <AuthOverlay Close={closeAuthOverlay} handleLogin={handleLogin} />
+      {showSearchOverlay && (
+        <SearchOverlay Close={() => setShowSearchOverlay(false)} />
       )}
     </header>
   );

@@ -9,6 +9,7 @@ import {
   FaVideo,
   FaHeart,
   FaUserCircle,
+  FaUserShield, // Admin icon
 } from "react-icons/fa";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import "./Sidebar.css";
@@ -16,6 +17,8 @@ import "./Sidebar.css";
 const Sidebar = ({ isSidebarOpen, handleSidebarToggle, user }) => {
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}>
@@ -53,13 +56,15 @@ const Sidebar = ({ isSidebarOpen, handleSidebarToggle, user }) => {
               <span className="sidebar-text">Videos</span>
             </Nav.Link>
           </LinkContainer>
-          <hr></hr>
 
           <hr></hr>
-          <LinkContainer to={user ? "/profile" : "/login"}>
-            <Nav.Link eventKey={user ? "/profile" : "/login"}>
+
+          <LinkContainer to={userInfo ? "/profile" : "/login"}>
+            <Nav.Link eventKey={userInfo ? "/profile" : "/login"}>
               <FaUserCircle className="sidebar-icon" />
-              <span className="sidebar-text">{user ? user.name : "Login"}</span>
+              <span className="sidebar-text">
+                {userInfo ? userInfo.username : "Login"}
+              </span>
             </Nav.Link>
           </LinkContainer>
 
@@ -69,6 +74,19 @@ const Sidebar = ({ isSidebarOpen, handleSidebarToggle, user }) => {
               <span className="sidebar-text">Favourites</span>
             </Nav.Link>
           </LinkContainer>
+          <hr></hr>
+          {/* Conditionally render admin control if user is admin */}
+          {userInfo && userInfo.isAdmin && (
+            <>
+              <LinkContainer to="/admin/">
+                <Nav.Link eventKey="/admin/">
+                  <FaUserShield className="sidebar-icon" />
+                  <span className="sidebar-text">Admin Controls</span>
+                </Nav.Link>
+              </LinkContainer>
+              <hr></hr>
+            </>
+          )}
         </div>
       </Nav>
     </div>

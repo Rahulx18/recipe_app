@@ -20,12 +20,13 @@ export const login = (email, password) => async (dispatch) => {
 
   try {
     const { data } = await axios.post(
-      `${API_URL}/login`,
+      `${API_URL}/auth/login`,
       { email, password },
       config
     );
     dispatch({ type: LOGIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
+    console.log("userdata admin", data.isAdmin);
   } catch (error) {
     dispatch({
       type: LOGIN_FAILURE,
@@ -43,7 +44,7 @@ export const register = (name, email, password) => async (dispatch) => {
 
   try {
     const { data } = await axios.post(
-      `${API_URL}/register`,
+      `${API_URL}/auth/register`,
       { name, email, password },
       config
     );
