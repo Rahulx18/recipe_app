@@ -28,7 +28,7 @@ const LandingPage = () => {
   const recentVideos = videos.slice(0, 3);
   const recentRecipes = recipes.slice(0, 8);
   const recentBlogs = blogs.slice(0, 8);
-
+  console.log("data", recentVideos);
   const handleFavoriteToggle = (id, type) => {
     console.log(`Toggled favorite for ${type} with ID:`, id);
   };
