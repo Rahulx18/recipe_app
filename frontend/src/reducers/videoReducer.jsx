@@ -5,20 +5,18 @@ import {
   CREATE_VIDEO_REQUEST,
   CREATE_VIDEO_SUCCESS,
   CREATE_VIDEO_FAILURE,
+  RESET_VIDEO_CREATE,
 } from "../constants";
 
 const initialState = {
   videos: [],
   loading: false,
   error: null,
+  success: false,
 };
 
-const videoReducer = (
-  state = { videos: [], loading: false, error: null },
-  action
-) => {
+const videoReducer = (state = initialState, action) => {
   switch (action.type) {
-    // Fetch videos
     case FETCH_VIDEOS_REQUEST:
       return { ...state, loading: true };
     case FETCH_VIDEOS_SUCCESS:
@@ -26,19 +24,24 @@ const videoReducer = (
     case FETCH_VIDEOS_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
-    // Create video
     case CREATE_VIDEO_REQUEST:
       return { ...state, loading: true };
     case CREATE_VIDEO_SUCCESS:
       return {
         ...state,
         loading: false,
-        videos: [...state.videos, action.payload], // Add newly created video
+        videos: [...state.videos, action.payload],
         success: true,
       };
     case CREATE_VIDEO_FAILURE:
-      return { ...state, loading: false, error: action.payload };
-
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: false,
+      };
+    case RESET_VIDEO_CREATE:
+      return initialState;
     default:
       return state;
   }

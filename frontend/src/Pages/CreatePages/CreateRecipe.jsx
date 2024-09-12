@@ -12,17 +12,15 @@ const CreateRecipe = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const recipeList = useSelector((state) => state.recipeList);
-  const { success, error } = recipeList;
+  const { success: recipecreated, error, loading } = recipeList;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const newRecipe = {
       title,
@@ -36,25 +34,6 @@ const CreateRecipe = () => {
 
     dispatch(createRecipe(newRecipe));
   };
-
-  if (success) {
-    setLoading(false);
-    window.alert("Recipe created successfully!");
-    navigate("/admin");
-
-    setTitle("");
-    setIngredients("");
-    setInstructions("");
-    setVideoURL("");
-    setThumbnail("");
-    setDescription("");
-    setTags("");
-  }
-
-  if (error) {
-    setLoading(false);
-    window.alert(`Error: ${error}`);
-  }
 
   return (
     <div className="create-container">

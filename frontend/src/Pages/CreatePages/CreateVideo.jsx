@@ -1,92 +1,84 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createVideo } from "../../actions/videoActions";
+import { createVideo, resetVideoCreate } from "../../actions/videoActions";
 import { useNavigate } from "react-router-dom";
 import "./Create.css";
 
 const CreateVideo = () => {
-  const [title, setTitle] = useState("");
-  const [embedCode, setEmbedCode] = useState("");
-  const [description, setDescription] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [ingredients, setIngredients] = useState([{ name: "", link: "" }]);
-  const [recipeLink, setRecipeLink] = useState("");
-  const [externalLinks, setExternalLinks] = useState({
-    songLink: "",
-    subscriptionLink: "",
+  const [formData, setFormData] = useState({
+    title: "",
+    embedCode: "",
+    description: "",
+    thumbnail: "",
+    ingredients: [{ name: "", link: "" }],
+    recipeLink: "",
+    externalLinks: { songLink: "", subscriptionLink: "" },
+    tags: "",
+    date: "",
   });
-  const [tags, setTags] = useState("");
-  const [date, setDate] = useState(""); // New date state
-  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fetch the video creation status from Redux state
   const videoList = useSelector((state) => state.videoList);
-  const { success, error } = videoList;
+  const { success: videoCreated, error, loading } = videoList;
 
   useEffect(() => {
-    if (success) {
-      setLoading(false);
-      window.alert("Video created successfully!");
-
-      setTitle("");
-      setEmbedCode("");
-      setDescription("");
-      setThumbnail("");
-      setIngredients([{ name: "", link: "" }]);
-      setRecipeLink("");
-      setExternalLinks({ songLink: "", subscriptionLink: "" });
-      setTags("");
-      setDate("");
+    if (videoCreated) {
+      navigate("/admin");
+      dispatch(resetVideoCreate());
     }
-
-    if (error) {
-      setLoading(false);
-      window.alert(`Error: ${error}`);
-    }
-  }, [success, error, navigate]);
+  }, [videoCreated, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const newVideo = {
-      title,
-      embedCode,
-      description,
-      thumbnail,
-      ingredients,
-      recipeLink,
-      externalLinks,
-      tags: tags.split(" #").map((tag) => tag.trim().replace("#", "")),
-      date: date ? new Date(date) : new Date(),
+      title: formData.title,
+      embedCode: formData.embedCode,
+      description: formData.description,
+      thumbnail: formData.thumbnail,
+      ingredients: formData.ingredients,
+      recipeLink: formData.recipeLink,
+      externalLinks: formData.externalLinks,
+      tags: formData.tags.split(" #").map((tag) => tag.trim().replace("#", "")),
+      date: formData.date ? new Date(formData.date) : new Date(),
     };
 
     dispatch(createVideo(newVideo));
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleIngredientChange = (index, field, value) => {
-    const newIngredients = [...ingredients];
+    const newIngredients = [...formData.ingredients];
     newIngredients[index][field] = value;
-    setIngredients(newIngredients);
+    setFormData((prevData) => ({ ...prevData, ingredients: newIngredients }));
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", link: "" }]);
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredients: [...prevData.ingredients, { name: "", link: "" }],
+    }));
   };
 
   return (
     <div className="create-container">
       <h1>Create New Video</h1>
+      {error && <div className="error-message">{error}</div>}
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Title</label>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -95,8 +87,9 @@ const CreateVideo = () => {
           <label>Embed Code</label>
           <input
             type="text"
-            value={embedCode}
-            onChange={(e) => setEmbedCode(e.target.value)}
+            name="embedCode"
+            value={formData.embedCode}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -104,8 +97,9 @@ const CreateVideo = () => {
         <div className="form-group">
           <label>Description</label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={formData.description}
+            onChange={handleInputChange}
             required
           ></textarea>
         </div>
@@ -114,15 +108,16 @@ const CreateVideo = () => {
           <label>Thumbnail URL</label>
           <input
             type="text"
-            value={thumbnail}
-            onChange={(e) => setThumbnail(e.target.value)}
+            name="thumbnail"
+            value={formData.thumbnail}
+            onChange={handleInputChange}
             required
           />
         </div>
 
         <div className="form-group">
           <label>Ingredients</label>
-          {ingredients.map((ingredient, index) => (
+          {formData.ingredients.map((ingredient, index) => (
             <div key={index} className="ingredient-group">
               <input
                 type="text"
@@ -152,8 +147,9 @@ const CreateVideo = () => {
           <label>Recipe Link</label>
           <input
             type="text"
-            value={recipeLink}
-            onChange={(e) => setRecipeLink(e.target.value)}
+            name="recipeLink"
+            value={formData.recipeLink}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -162,20 +158,31 @@ const CreateVideo = () => {
           <input
             type="text"
             placeholder="Song Link"
-            value={externalLinks.songLink}
+            name="songLink"
+            value={formData.externalLinks.songLink}
             onChange={(e) =>
-              setExternalLinks({ ...externalLinks, songLink: e.target.value })
+              setFormData((prevData) => ({
+                ...prevData,
+                externalLinks: {
+                  ...prevData.externalLinks,
+                  songLink: e.target.value,
+                },
+              }))
             }
           />
           <input
             type="text"
             placeholder="Subscription Link"
-            value={externalLinks.subscriptionLink}
+            name="subscriptionLink"
+            value={formData.externalLinks.subscriptionLink}
             onChange={(e) =>
-              setExternalLinks({
-                ...externalLinks,
-                subscriptionLink: e.target.value,
-              })
+              setFormData((prevData) => ({
+                ...prevData,
+                externalLinks: {
+                  ...prevData.externalLinks,
+                  subscriptionLink: e.target.value,
+                },
+              }))
             }
           />
         </div>
@@ -184,8 +191,9 @@ const CreateVideo = () => {
           <label>Tags (" #" separated)</label>
           <input
             type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
+            name="tags"
+            value={formData.tags}
+            onChange={handleInputChange}
           />
         </div>
 
@@ -193,8 +201,9 @@ const CreateVideo = () => {
           <label>Date</label>
           <input
             type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
           />
         </div>
 
