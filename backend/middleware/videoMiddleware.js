@@ -1,5 +1,6 @@
 const Video = require("../1_models/Video");
 const asyncHandler = require("express-async-handler");
+
 const getAllVideos = async (req, res) => {
   try {
     const videos = await Video.find();
@@ -19,14 +20,24 @@ const getRecentVideo = async (req, res) => {
 };
 
 const addVideo = asyncHandler(async (req, res) => {
-  console.log("Request body: ", req.body); // Log the request body
-  console.log("Authenticated User: ", req.user); // Log the user info
+  console.log("Request body: ", req.body);
+  console.log("Authenticated User: ", req.user);
 
-  const { title, embedCode, thumbnail, description } = req.body;
+  const {
+    title,
+    embedCode,
+    thumbnail,
+    description,
+    ingredients = [],
+    recipeLink = "",
+    externalLinks = {},
+    tags = "",
+    date = new Date(), // Set default value for date
+  } = req.body;
 
   if (!title || !embedCode || !thumbnail || !description) {
     res.status(400);
-    throw new Error("Please fill all fields");
+    throw new Error("Please fill all required fields");
   }
 
   const video = await Video.create({
@@ -34,6 +45,11 @@ const addVideo = asyncHandler(async (req, res) => {
     embedCode,
     thumbnail,
     description,
+    ingredients,
+    recipeLink,
+    externalLinks,
+    tags,
+    date, // Include date in the video object
     user: req.user._id,
   });
 
@@ -44,6 +60,11 @@ const addVideo = asyncHandler(async (req, res) => {
       embedCode: video.embedCode,
       thumbnail: video.thumbnail,
       description: video.description,
+      ingredients: video.ingredients,
+      recipeLink: video.recipeLink,
+      externalLinks: video.externalLinks,
+      tags: video.tags,
+      date: video.date,
     });
   } else {
     res.status(400);

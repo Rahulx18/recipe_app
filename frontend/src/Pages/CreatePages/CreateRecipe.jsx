@@ -17,9 +17,8 @@ const CreateRecipe = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fetch the status from the Redux state
-  const recipeCreate = useSelector((state) => state.recipeCreate);
-  const { success, error } = recipeCreate;
+  const recipeList = useSelector((state) => state.recipeList);
+  const { success, error } = recipeList;
 
   const handleSubmit = (e) => {
     e.preventDefault();

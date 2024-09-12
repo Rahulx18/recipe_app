@@ -1,32 +1,31 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const videoSchema = new Schema(
+const videoSchema = mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
+    title: { type: String, required: true },
+    embedCode: { type: String, required: true },
+    thumbnail: { type: String, required: true },
+    description: { type: String, required: true },
+    ingredients: [
+      {
+        name: { type: String, required: true },
+        link: { type: String },
+      },
+    ],
+    recipeLink: { type: String },
+    externalLinks: {
+      songLink: { type: String },
+      subscriptionLink: { type: String },
     },
-    embedCode: {
-      type: String,
-      required: true,
-    },
-    thumbnail: {
-      type: String,
-      required: false,
-    },
-    description: {
-      type: String,
-      required: false,
-    },
-    date: {
-      type: Date,
-      default: Date.now,
-    },
+    tags: { type: [String], default: [] },
+    date: { type: Date, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   },
   {
-    timestamps: true,
+    timestamps: true, // Automatically handles createdAt and updatedAt
   }
 );
 
-module.exports = mongoose.model("Video", videoSchema);
+const Video = mongoose.model("Video", videoSchema);
+
+module.exports = Video;

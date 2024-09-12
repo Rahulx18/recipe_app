@@ -33,6 +33,7 @@ export const fetchVideos = () => async (dispatch) => {
 
 export const createVideo = (videoData) => async (dispatch, getState) => {
   try {
+    console.log("Create req");
     dispatch({ type: "VIDEO_CREATE_REQUEST" });
 
     const {
@@ -57,6 +58,7 @@ export const createVideo = (videoData) => async (dispatch, getState) => {
     );
 
     dispatch({ type: "VIDEO_CREATE_SUCCESS", payload: data });
+    console.log("create success", data);
   } catch (error) {
     dispatch({
       type: "VIDEO_CREATE_FAIL",
