@@ -37,13 +37,11 @@ const CreateRecipe = () => {
     dispatch(createRecipe(newRecipe));
   };
 
-  // Handle side effects like success and redirection
   if (success) {
     setLoading(false);
     window.alert("Recipe created successfully!");
     navigate("/admin");
 
-    // Reset form fields after submission
     setTitle("");
     setIngredients("");
     setInstructions("");
