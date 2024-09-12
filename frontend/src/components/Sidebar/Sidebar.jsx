@@ -29,7 +29,7 @@ const Sidebar = ({ isSidebarOpen, handleSidebarToggle, user }) => {
       >
         {isSidebarOpen ? <MdKeyboardArrowLeft /> : <MdKeyboardArrowRight />}
       </div>
-      <hr></hr>
+
       <Nav className="flex-column" activeKey={currentPath}>
         <div className="sidebar-section">
           <LinkContainer to="/">

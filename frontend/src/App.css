@@ -29,6 +29,7 @@ html {
   background-color: #333; /* Onyx */
   color: #fff; /* Linen */
   transition: transform 0.3s ease;
+  border-right: 2px solid gray;
 }
 
 .header {
@@ -44,7 +45,6 @@ html {
   z-index: 10;
   background-color: #fff;
   transition: left 0.3s ease, width 0.3s ease;
-  border: 2px solid rgb(63, 204, 190);
 }
 
 .content-container {
@@ -54,9 +54,8 @@ html {
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
-  background-color: #f9f0e6; /* Linen */
+  background-color: #333333; /* Linen */
   color: #333333; /* Onyx */
-  border: 2px solid red;
 }
 
 .content-container.closed {

@@ -1,63 +1,145 @@
-/* General content styling for all sections */
-.content {
-  margin-top: 2rem;
+/* General Content Styling */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #333333; /* Onyx Dark Grey */
+  color: #f9f0e6; /* Linen */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Card styling shared across blogs, videos, and recipes */
+h1,
+h2,
+h3 {
+  font-family: "Poppins", sans-serif;
+  color: #f9f0e6; /* Linen */
+}
+
+/* Consistent Section Padding */
+.content {
+  margin-top: 2rem;
+  padding: 2rem;
+}
+
+/* Card Styling (shared across blogs, videos, and recipes) */
 .card {
   border: none;
-  border-radius: 0.5rem; /* Consistent radius */
+  border-radius: 0.5rem;
   background-color: #f9f0e6; /* Linen */
   color: #333333; /* Onyx */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 1.5rem; /* Spacing between cards */
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Title styling */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); /* Add hover effect */
+}
+
+/* Title Styling */
 .card-title {
   font-weight: bold;
-  font-size: 1.2rem;
-  color: #000000; /* Black */
+  font-size: 1.4rem;
+  color: #333333; /* Onyx */
   margin-bottom: 0.5rem;
 }
 
-/* Card image styling for consistent sizing */
+/* Card Image Styling for Consistent Sizing */
 .card-image {
-  max-height: 200px; /* Control the max height for images */
-  object-fit: cover; /* Ensures the image fits well without distortion */
-  border-top-left-radius: 0.5rem; /* Match card radius */
-  border-top-right-radius: 0.5rem; /* Match card radius */
+  width: 100%; /* Full width */
+  max-height: 250px; /* Control the max height for images */
+  object-fit: cover; /* Ensures the image fits without distortion */
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
-/* Footer styling consistent across cards */
+/* Footer Styling Consistent Across Cards */
 .card-footer {
-  border-top: none;
   padding: 0.75rem 1rem;
   background-color: #f9f0e6; /* Linen */
   color: #333333; /* Onyx */
 }
 
-/* Styling for buttons within the footer */
+/* Button Styling in Footer */
 .button-link {
   text-decoration: none;
-  color: #333333; /* Onyx */
+  background-color: #4a90e2; /* Primary Blue Accent */
+  color: #ffffff; /* White */
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
 }
 
 .button-link:hover {
-  text-decoration: underline;
+  background-color: #357abd; /* Darker Blue on Hover */
+  text-decoration: none;
 }
 
-/* Badge styling */
+/* Badge Styling */
 .badge {
   font-size: 0.85rem;
-  background-color: #333333; /* Onyx */
+  background-color: #4a90e2; /* Primary Blue Accent */
   color: #f9f0e6; /* Linen */
-  border-radius: 0.25rem; /* Slightly rounded corners */
+  border-radius: 0.25rem;
   padding: 0.2rem 0.5rem;
 }
 
-/* Responsive behavior */
-@media (max-width: 768px) {
+/* Responsive Behavior */
+@media (max-width: 1024px) {
+  .content {
+    padding: 1.5rem;
+  }
+
+  .card {
+    margin-bottom: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
   .card-image {
-    max-height: 150px; /* Adjust the max height for smaller screens */
+    max-height: 200px; /* Adjust max height on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 1rem;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-image {
+    max-height: 150px; /* Smaller image for smaller screens */
+  }
+
+  .button-link {
+    padding: 0.4rem 0.8rem; /* Adjust button size for small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-image {
+    max-height: 120px; /* Further reduce image size for mobile */
+  }
+
+  .button-link {
+    padding: 0.3rem 0.7rem;
   }
 }
