@@ -50,17 +50,17 @@ html {
 .content-container {
   margin-left: 5rem;
   margin-top: 6rem;
-  width: 100%;
+  width: calc(100%-5rem);
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
-  background-color: #333333; /* Linen */
+  background-color: #fff; /* Linen */
   color: #333333; /* Onyx */
 }
 
 .content-container.closed {
   margin-left: 5rem;
-  width: 100%; /* Content container takes full width */
+  width: calc(100%-5rem); /* Content container takes full width */
 }
 
 .footer {
@@ -68,7 +68,6 @@ html {
   text-align: center;
 
   padding: 1rem;
-  background-color: #d9534f;
   color: #fff;
 }
 
@@ -82,6 +81,7 @@ html {
 .banner-image {
   width: 100%;
   height: 300px;
+  border-radius: 1%;
   object-fit: cover;
 }
 @media (max-width: 768px) {

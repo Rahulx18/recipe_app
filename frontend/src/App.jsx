@@ -11,7 +11,7 @@ import Blogs from "./Pages/Blogs";
 import Videos from "./Pages/Videos";
 import Login from "./components/Auth/Login"; // Correct import for Login
 import Register from "./components/Auth/Register"; // Correct import for Register
-import bannerImg from "./BANNER_FINAL_3.png";
+
 import ReactGA from "react-ga4";
 import Admin from "./Pages/Admin";
 import CreateBlog from "./Pages/CreatePages/CreateBlog";
@@ -61,7 +61,6 @@ const App = () => {
         >
           <Header isSidebarOpen={isSidebarOpen} />
           <main className="main-content">
-            <img src={bannerImg} alt="Banner" className="banner-image" />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/recipes" element={<Recipes />} />

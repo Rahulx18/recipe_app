@@ -6,6 +6,7 @@ import "./Landingpage.css";
 import { fetchRecipes } from "../../actions/recipeActions";
 import { fetchBlogs } from "../../actions/blogActions";
 import { fetchVideos } from "../../actions/videoActions";
+import bannerImg from "../../BANNER_FINAL_3.png";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
+      <img src={bannerImg} alt="Banner" className="banner-image" />
       <h1>Welcome to Udta Rasoiya</h1>
       <p>
         Your go-to place for delicious vegan Indian recipes, blogs, and videos.
