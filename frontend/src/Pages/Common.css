@@ -1,69 +1,74 @@
-/* General content styling for all sections */
-.content {
-  margin-top: 2rem;
+/* Star icon cursor */
+.masonry-item .p-0.text-white {
+  cursor: pointer; /* Indicates the star is clickable */
 }
 
-/* Card styling shared across blogs, videos, and recipes */
-.card {
-  border: none;
-  border-radius: 0.5rem; /* Updated to match a consistent radius */
-  background-color: #ffffff; /* White background for cards */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+.masonry-item .p-0.text-white:hover {
+  background-color: rgba(12, 32, 204, 0.7);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-/* Title styling */
-.card-title {
+.masonry-item .btn-sm {
+  background-color: #fff;
+  color: #000;
   font-weight: bold;
-  font-size: 1.2rem;
-  color: #333333; /* Dark grey for titles */
-  margin-bottom: 0.5rem; /* Space below title */
+  text-align: center;
+  cursor: pointer;
 }
 
-/* Card image styling for consistent sizing */
-.card-image {
-  max-height: 200px; /* Control the max height for images */
-  object-fit: cover; /* Ensures the image fits well without distortion */
-  border-top-left-radius: 0.5rem; /* Match card radius */
-  border-top-right-radius: 0.5rem; /* Match card radius */
+.masonry-item .btn-sm:hover {
+  background-color: #d9534f;
+  color: white;
+  cursor: pointer;
 }
 
-/* Footer styling consistent across cards */
-.card-footer {
-  border-top: none;
-  padding: 0.75rem 1rem;
-  background-color: #f7f7f7; /* Light grey background for footer */
-  color: #333333; /* Dark grey text color */
+.masonry-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
 }
 
-/* Styling for buttons within the footer */
-.button-link {
-  text-decoration: none;
-  color: #4a90e2; /* Primary blue for links */
+.masonry-item {
+  position: relative;
+  break-inside: avoid;
 }
 
-.button-link:hover {
-  text-decoration: underline;
-  color: #ff6f61; /* Coral red for hover effect */
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
 }
 
-.button-link svg {
-  vertical-align: middle;
+.masonry-item:hover img {
+  transform: scale(1.05);
 }
 
-/* Badge styling */
-.badge {
-  font-size: 0.85rem;
-  background-color: #ff6f61; /* Coral red for badge background */
-  color: #ffffff; /* White text color for contrast */
-  border-radius: 0.25rem; /* Slightly rounded corners */
-  padding: 0.2rem 0.5rem;
+.masonry-item .card {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-/* Responsive behavior */
-@media (max-width: 768px) {
-  .card-image {
-    max-height: 100px;
+.masonry-item .card-img-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  padding: 15px;
+}
+
+.masonry-item .text-muted {
+  color: #ccc !important;
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+  .masonry-container {
+    grid-template-columns: 1fr;
   }
-}
-@media (max-width: 480px) {
 }

@@ -71,7 +71,7 @@ const Blogs = () => {
             </Col>
           ))
         ) : (
-          <p style={{ color: "white" }}>No blogs found.</p>
+          <p style={{ color: "#333" }}>No blogs found.</p>
         )}
       </Row>
     </Container>

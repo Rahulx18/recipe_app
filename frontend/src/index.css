@@ -21,46 +21,6 @@ h3 {
   padding: 2rem;
 }
 
-/* Card Styling (shared across blogs, videos, and recipes) */
-.card {
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #f9f0e6; /* Linen */
-  color: #333333; /* Onyx */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  margin-bottom: 1.5rem; /* Spacing between cards */
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); /* Add hover effect */
-}
-
-/* Title Styling */
-.card-title {
-  font-weight: bold;
-  font-size: 1.4rem;
-  color: #333333; /* Onyx */
-  margin-bottom: 0.5rem;
-}
-
-/* Card Image Styling for Consistent Sizing */
-.card-image {
-  width: 100%; /* Full width */
-  max-height: 250px; /* Control the max height for images */
-  object-fit: cover; /* Ensures the image fits without distortion */
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
-/* Footer Styling Consistent Across Cards */
-.card-footer {
-  padding: 0.75rem 1rem;
-  background-color: #f9f0e6; /* Linen */
-  color: #333333; /* Onyx */
-}
-
 /* Button Styling in Footer */
 .button-link {
   text-decoration: none;
