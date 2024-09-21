@@ -7,6 +7,9 @@ import {
   CREATE_VIDEO_SUCCESS,
   CREATE_VIDEO_FAILURE,
   RESET_VIDEO_CREATE,
+  FETCH_VIDEO_BY_ID_FAILURE,
+  FETCH_VIDEO_BY_ID_SUCCESS,
+  FETCH_VIDEO_BY_ID_REQUEST,
 } from "../constants";
 
 const API_URL = import.meta.env.VITE_PROD_URL;
@@ -27,8 +30,9 @@ export const fetchVideos = () => async (dispatch) => {
     });
   }
 };
+//
 export const fetchVideoById = (id) => async (dispatch) => {
-  dispatch({ type: FETCH_VIDEOS_REQUEST });
+  dispatch({ type: FETCH_VIDEO_BY_ID_REQUEST });
 
   try {
     const config = {
@@ -37,10 +41,11 @@ export const fetchVideoById = (id) => async (dispatch) => {
       },
     };
     const { data } = await axios.get(`${API_URL}/videos/${id}`, config);
-    dispatch({ type: FETCH_VIDEOS_SUCCESS, payload: data });
+    console.log("single vid", data);
+    dispatch({ type: FETCH_VIDEO_BY_ID_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: FETCH_VIDEOS_FAILURE,
+      type: FETCH_VIDEO_BY_ID_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -48,6 +53,7 @@ export const fetchVideoById = (id) => async (dispatch) => {
     });
   }
 };
+//
 
 export const createVideo = (videoData) => async (dispatch, getState) => {
   dispatch({ type: CREATE_VIDEO_REQUEST });

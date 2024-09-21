@@ -20,17 +20,14 @@ const SinglePage = () => {
       dispatch(fetchRecipeById(id));
     }
   }, [dispatch, id, type]);
-
-  // Selectors for fetched data
-  const videoDetails = useSelector((state) => state.videoList);
+  const videoDetails = useSelector((state) => state.videos.videoDetails);
+  const { video, videoLoading, videoError } = videoDetails;
   const blogDetails = useSelector((state) => state.blogList);
   const recipeDetails = useSelector((state) => state.recipeList);
 
-  const { video, loading: videoLoading, error: videoError } = videoDetails;
-  const { blog, loading: blogLoading, error: blogError } = blogDetails;
-  const { recipe, loading: recipeLoading, error: recipeError } = recipeDetails;
+  const { blogs, loading: blogLoading, error: blogError } = blogDetails;
+  const { recipes, loading: recipeLoading, error: recipeError } = recipeDetails;
 
-  // Loading and error handling
   if (videoLoading || blogLoading || recipeLoading) {
     return <p>Loading...</p>;
   }
@@ -40,8 +37,6 @@ const SinglePage = () => {
       <p style={{ color: "red" }}>{videoError || blogError || recipeError}</p>
     );
   }
-
-  // Rendering the content based on the type
   return (
     <Container className="single-page-container">
       {type === "videos" && video && (
@@ -60,29 +55,29 @@ const SinglePage = () => {
         </Card>
       )}
 
-      {type === "blogs" && blog && (
+      {type === "blogs" && blogs && (
         <Card className="text-white bg-dark">
-          <Card.Img src={blog.image} alt={blog.title} />
+          <Card.Img src={blogs.image} alt={blogs.title} />
           <Card.Body>
-            <Card.Title>{blog.title}</Card.Title>
-            <Card.Text>{blog.content}</Card.Text>
+            <Card.Title>{blogs.title}</Card.Title>
+            <Card.Text>{blogs.content}</Card.Text>
             <Card.Text>
-              Published on: {new Date(blog.date).toLocaleDateString()}
+              Published on: {new Date(blogs.date).toLocaleDateString()}
             </Card.Text>
           </Card.Body>
         </Card>
       )}
 
-      {type === "recipes" && recipe && (
+      {type === "recipes" && recipes && (
         <Card className="text-white bg-dark">
-          <Card.Img src={recipe.thumbnail} alt={recipe.title} />
+          <Card.Img src={recipes.thumbnail} alt={recipes.title} />
           <Card.Body>
-            <Card.Title>{recipe.title}</Card.Title>
-            <Card.Text>{recipe.description}</Card.Text>
-            <Card.Text>Ingredients: {recipe.ingredients.join(", ")}</Card.Text>
-            <Card.Text>Instructions: {recipe.instructions}</Card.Text>
+            <Card.Title>{recipes.title}</Card.Title>
+            <Card.Text>{recipes.description}</Card.Text>
+            <Card.Text>Ingredients: {recipes.ingredients.join(", ")}</Card.Text>
+            <Card.Text>Instructions: {recipes.instructions}</Card.Text>
             {recipe.videoURL && (
-              <Button variant="primary" href={recipe.videoURL}>
+              <Button variant="primary" href={recipes.videoURL}>
                 Watch Recipe Video
               </Button>
             )}
