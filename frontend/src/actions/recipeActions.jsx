@@ -29,7 +29,27 @@ export const fetchRecipes = () => async (dispatch) => {
     });
   }
 };
+export const fetchRecipeById = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_RECIPES_REQUEST });
 
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.get(`${API_URL}/recipes/${id}`, config);
+    dispatch({ type: FETCH_RECIPE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: FETCH_RECIPES_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 export const createRecipe = (recipeData) => async (dispatch, getState) => {
   dispatch({ type: "CREATE_RECIPE_REQUEST" });
 

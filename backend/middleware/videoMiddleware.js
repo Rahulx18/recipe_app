@@ -10,10 +10,11 @@ const getAllVideos = async (req, res) => {
   }
 };
 
-const getRecentVideo = async (req, res) => {
+const getVideoById = async (req, res) => {
+  const id = req.params._id;
   try {
-    const recentVideo = await Video.findOne().sort({ date: -1 });
-    res.json(recentVideo);
+    const video = await Video.find(id);
+    res.json(video);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -72,4 +73,4 @@ const addVideo = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getAllVideos, getRecentVideo, addVideo };
+module.exports = { getAllVideos, getVideoById, addVideo };

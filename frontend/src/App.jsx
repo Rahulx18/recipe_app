@@ -17,6 +17,7 @@ import Admin from "./Pages/Admin";
 import CreateBlog from "./Pages/CreatePages/CreateBlog";
 import CreateRecipe from "./Pages/CreatePages/CreateRecipe";
 import CreateVideo from "./Pages/CreatePages/CreateVideo";
+import SinglePage from "./Pages/SinglePage/SinglePage";
 
 ReactGA.initialize("G-25V5FZJ7BB");
 ReactGA.send("pageview");
@@ -73,6 +74,7 @@ const App = () => {
               <Route path="/createBlog" element={<CreateBlog />} />
               <Route path="/createRecipe" element={<CreateRecipe />} />
               <Route path="/createVideo" element={<CreateVideo />} />
+              <Route path="/:type/:id" element={<SinglePage />} />
             </Routes>
           </main>
         </div>

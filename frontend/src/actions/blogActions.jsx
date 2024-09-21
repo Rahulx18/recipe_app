@@ -10,6 +10,27 @@ import {
 
 const API_URL = import.meta.env.VITE_PROD_URL;
 
+export const fetchBlogById = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_BLOGS_REQUEST });
+
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.get(`${API_URL}/blogs/${id}`, config);
+    dispatch({ type: FETCH_BLOG_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: FETCH_BLOGS_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 export const fetchBlogs = () => async (dispatch) => {
   dispatch({ type: FETCH_BLOGS_REQUEST });
 
@@ -43,10 +64,15 @@ export const createBlog = (blogData) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.post(`${API_URL}/blogs`, blogData, config);
+    const { data } = await axios.post(
+      `${API_URL}/blogs/create`,
+      blogData,
+      config
+    );
 
     dispatch({
       type: CREATE_BLOG_SUCCESS,
