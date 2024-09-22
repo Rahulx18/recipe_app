@@ -26,7 +26,7 @@ const LandingPage = () => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  const recentVideos = videos.slice(0, 5);
+  const recentVideos = videos.reverse().slice(0, 1);
   const recentRecipes = recipes.slice(0, 8);
   const recentBlogs = blogs.slice(0, 8);
 
