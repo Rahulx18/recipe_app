@@ -20,11 +20,10 @@ const SinglePage = () => {
       dispatch(fetchRecipeById(id));
     }
   }, [dispatch, id, type]);
-  const videoDetails = useSelector((state) => state.videos.videoDetails);
-  const { video, videoLoading, videoError } = videoDetails;
+  const videoDetails = useSelector((state) => state.videoList);
+  const { videos, videoLoading, videoError } = videoDetails;
   const blogDetails = useSelector((state) => state.blogList);
   const recipeDetails = useSelector((state) => state.recipeList);
-
   const { blogs, loading: blogLoading, error: blogError } = blogDetails;
   const { recipes, loading: recipeLoading, error: recipeError } = recipeDetails;
 
@@ -39,16 +38,16 @@ const SinglePage = () => {
   }
   return (
     <Container className="single-page-container">
-      {type === "videos" && video && (
+      {type === "videos" && videos && (
         <Card className="text-white bg-dark">
-          <Card.Img src={video.thumbnail} alt={video.title} />
+          <Card.Img src={videos.thumbnail} alt={videos.title} />
           <Card.Body>
-            <Card.Title>{video.title}</Card.Title>
-            <Card.Text>{video.description}</Card.Text>
+            <Card.Title>{videos.title}</Card.Title>
+            <Card.Text>{videos.description}</Card.Text>
             <Card.Text>
-              Published on: {new Date(video.date).toLocaleDateString()}
+              Published on: {new Date(videos.date).toLocaleDateString()}
             </Card.Text>
-            <Button variant="primary" href={video.embedCode}>
+            <Button variant="primary" href={videos.embedCode}>
               Watch Video
             </Button>
           </Card.Body>

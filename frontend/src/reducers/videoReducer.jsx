@@ -2,91 +2,49 @@ import {
   FETCH_VIDEOS_REQUEST,
   FETCH_VIDEOS_SUCCESS,
   FETCH_VIDEOS_FAILURE,
-  FETCH_VIDEO_BY_ID_REQUEST,
-  FETCH_VIDEO_BY_ID_SUCCESS,
-  FETCH_VIDEO_BY_ID_FAILURE,
   CREATE_VIDEO_REQUEST,
   CREATE_VIDEO_SUCCESS,
   CREATE_VIDEO_FAILURE,
   RESET_VIDEO_CREATE,
+  FETCH_VIDEO_BY_ID_FAILURE,
+  FETCH_VIDEO_BY_ID_SUCCESS,
+  FETCH_VIDEO_BY_ID_REQUEST,
 } from "../constants";
 
 const initialState = {
-  videoList: {
-    videos: [],
-    loading: false,
-    error: null,
-  },
-  videoDetails: {
-    video: null,
-    loading: false,
-    error: null,
-  },
-  createVideo: {
-    loading: false,
-    success: false,
-    error: null,
-  },
+  videos: [],
+  loading: false,
+  error: null,
+  success: false,
 };
 
 const videoReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_VIDEOS_REQUEST:
-      return {
-        ...state,
-        videoList: { ...state.videoList, loading: true },
-      };
+      return { ...state, loading: true };
     case FETCH_VIDEOS_SUCCESS:
-      return {
-        ...state,
-        videoList: { loading: false, videos: action.payload },
-      };
+      return { ...state, loading: false, videos: action.payload };
     case FETCH_VIDEOS_FAILURE:
-      return {
-        ...state,
-        videoList: { loading: false, error: action.payload },
-      };
-
-    case FETCH_VIDEO_BY_ID_REQUEST:
-      return {
-        ...state,
-        videoDetails: { ...state.videoDetails, loading: true },
-      };
-    case FETCH_VIDEO_BY_ID_SUCCESS:
-      return {
-        ...state,
-        videoDetails: { loading: false, video: action.payload },
-      };
-    case FETCH_VIDEO_BY_ID_FAILURE:
-      return {
-        ...state,
-        videoDetails: { loading: false, error: action.payload },
-      };
+      return { ...state, loading: false, error: action.payload };
 
     case CREATE_VIDEO_REQUEST:
-      return {
-        ...state,
-        createVideo: { ...state.createVideo, loading: true },
-      };
+      return { ...state, loading: true };
     case CREATE_VIDEO_SUCCESS:
       return {
         ...state,
-        createVideo: { loading: false, success: true },
-        videoList: {
-          ...state.videoList,
-          videos: [...state.videoList.videos, action.payload],
-        },
+        loading: false,
+        videos: [...state.videos, action.payload],
+        success: true,
       };
     case CREATE_VIDEO_FAILURE:
       return {
         ...state,
-        createVideo: { loading: false, error: action.payload },
+        loading: false,
+        error: action.payload,
+        success: false,
       };
     case RESET_VIDEO_CREATE:
-      return {
-        ...state,
-        createVideo: { loading: false, success: false, error: null },
-      };
+      return initialState;
 
     default:
       return state;

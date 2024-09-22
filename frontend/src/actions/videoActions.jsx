@@ -32,7 +32,7 @@ export const fetchVideos = () => async (dispatch) => {
 };
 //
 export const fetchVideoById = (id) => async (dispatch) => {
-  dispatch({ type: FETCH_VIDEO_BY_ID_REQUEST });
+  dispatch({ type: FETCH_VIDEOS_REQUEST });
 
   try {
     const config = {
@@ -42,10 +42,10 @@ export const fetchVideoById = (id) => async (dispatch) => {
     };
     const { data } = await axios.get(`${API_URL}/videos/${id}`, config);
     console.log("single vid", data);
-    dispatch({ type: FETCH_VIDEO_BY_ID_SUCCESS, payload: data });
+    dispatch({ type: FETCH_VIDEOS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
-      type: FETCH_VIDEO_BY_ID_FAILURE,
+      type: FETCH_VIDEOS_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

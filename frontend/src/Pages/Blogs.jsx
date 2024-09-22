@@ -41,7 +41,7 @@ const Blogs = () => {
                       style={{
                         height: "100%",
                         objectFit: "cover",
-                        filter: "brightness(0.7)", // Darken the image slightly for better text visibility
+                        filter: "brightness(0.7)",
                       }}
                     />
                   )}

@@ -39,7 +39,8 @@ export const fetchRecipeById = (id) => async (dispatch) => {
       },
     };
     const { data } = await axios.get(`${API_URL}/recipes/${id}`, config);
-    dispatch({ type: FETCH_RECIPE_SUCCESS, payload: data });
+    dispatch({ type: FETCH_RECIPES_SUCCESS, payload: data });
+    console.log(data);
   } catch (error) {
     dispatch({
       type: FETCH_RECIPES_FAILURE,

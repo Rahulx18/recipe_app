@@ -11,7 +11,7 @@ const getAllRecipes = async (req, res) => {
 
 const getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id);
+    const recipe = await Recipe.findOne(req.params.id);
     if (!recipe) return res.status(404).json({ message: "Recipe not found" });
     res.json(recipe);
   } catch (error) {
