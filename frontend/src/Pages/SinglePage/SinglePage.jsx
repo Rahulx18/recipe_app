@@ -40,7 +40,12 @@ const SinglePage = () => {
     <Container className="single-page-container">
       {type === "videos" && videos && (
         <Card className="text-white bg-dark">
-          <Card.Img src={videos.thumbnail} alt={videos.title} />
+          <Card.Header>
+            <div
+              className="embed-container"
+              dangerouslySetInnerHTML={{ __html: videos.embedCode }}
+            />
+          </Card.Header>
           <Card.Body>
             <Card.Title>{videos.title}</Card.Title>
             <Card.Text>{videos.description}</Card.Text>
