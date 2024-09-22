@@ -26,9 +26,9 @@ const LandingPage = () => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  const recentVideos = videos.reverse().slice(0, 3);
-  const recentRecipes = recipes.slice(0, 8);
-  const recentBlogs = blogs.slice(0, 8);
+  const recentVideos = [...videos].reverse().slice(0, 3);
+  const recentRecipes = [...recipes].slice(0, 8);
+  const recentBlogs = [...blogs].slice(0, 8);
 
   const handleFavoriteToggle = (id, type) => {
     console.log(`Toggled favorite for ${type} with ID:`, id);
