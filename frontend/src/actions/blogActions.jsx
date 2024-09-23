@@ -7,12 +7,15 @@ import {
   CREATE_BLOG_SUCCESS,
   CREATE_BLOG_FAILURE,
   RESET_BLOG_CREATE,
+  FETCH_SINGLE_BLOG_REQUEST,
+  FETCH_SINGLE_BLOG_SUCCESS,
+  FETCH_SINGLE_BLOG_FAILURE,
 } from "../constants";
 
 const API_URL = import.meta.env.VITE_PROD_URL;
 
 export const fetchBlogById = (id) => async (dispatch) => {
-  dispatch({ type: FETCH_BLOGS_REQUEST });
+  dispatch({ type: FETCH_SINGLE_BLOG_REQUEST });
 
   try {
     const config = {
@@ -21,7 +24,7 @@ export const fetchBlogById = (id) => async (dispatch) => {
       },
     };
     const { data } = await axios.get(`${API_URL}/blogs/${id}`, config);
-    dispatch({ type: FETCH_BLOGS_SUCCESS, payload: data });
+    dispatch({ type: FETCH_SINGLE_BLOG_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: FETCH_BLOGS_FAILURE,
@@ -33,7 +36,7 @@ export const fetchBlogById = (id) => async (dispatch) => {
   }
 };
 export const fetchBlogs = () => async (dispatch) => {
-  dispatch({ type: FETCH_BLOGS_REQUEST });
+  dispatch({ type: FETCH_SINGLE_BLOG_FAILURE });
 
   try {
     console.log(API_URL);

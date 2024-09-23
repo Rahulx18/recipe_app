@@ -27,7 +27,7 @@ const SinglePage = () => {
     error: videoError,
   } = useSelector((state) => state.videoList);
   const {
-    blogs,
+    blog,
     loading: blogLoading,
     error: blogError,
   } = useSelector((state) => state.blogList);
@@ -37,14 +37,15 @@ const SinglePage = () => {
     error: recipeError,
   } = useSelector((state) => state.recipeList);
 
-  if (videoLoading || blogLoading || recipeLoading) {
+  const loading = videoLoading || blogLoading || recipeLoading;
+  const error = videoError || blogError || recipeError;
+
+  if (loading) {
     return <Spinner animation="border" />;
   }
 
-  if (videoError || blogError || recipeError) {
-    return (
-      <p style={{ color: "red" }}>{videoError || blogError || recipeError}</p>
-    );
+  if (error) {
+    return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
   }
 
   let content;
@@ -73,7 +74,6 @@ const SinglePage = () => {
           <Card.Text>
             <strong>Description:</strong> {description}
           </Card.Text>
-
           <Card.Text>
             <strong>Ingredients:</strong>
             <ul>
@@ -93,7 +93,6 @@ const SinglePage = () => {
               ))}
             </ul>
           </Card.Text>
-
           {recipeLink && (
             <Button
               variant="primary"
@@ -104,12 +103,10 @@ const SinglePage = () => {
               View Full Recipe
             </Button>
           )}
-
           <Card.Text>
             <strong>Published on:</strong>{" "}
             {date ? new Date(date).toLocaleDateString() : "N/A"}
           </Card.Text>
-
           {externalLinks?.songLink && (
             <Card.Text>
               <strong>Song Link:</strong>{" "}
@@ -122,7 +119,6 @@ const SinglePage = () => {
               </a>
             </Card.Text>
           )}
-
           {externalLinks?.subscriptionLink && (
             <Card.Text>
               <strong>Subscription Link:</strong>{" "}
@@ -138,16 +134,16 @@ const SinglePage = () => {
         </Card.Body>
       </Card>
     );
-  } else if (type === "blogs" && blogs) {
+  } else if (type === "blogs" && blog) {
     content = (
       <Card className="text-white bg-dark">
-        {blogs.image && <Card.Img src={blogs.image} alt={blogs.title} />}
+        {blog.image && <Card.Img src={blog.image} alt={blog.title} />}
         <Card.Body>
-          <Card.Title>{blogs.title}</Card.Title>
-          <Card.Text>{blogs.content}</Card.Text>
+          <Card.Title>{blog.title}</Card.Title>
+          <Card.Text>{blog.content}</Card.Text>
           <Card.Text>
             Published on:{" "}
-            {blogs.date ? new Date(blogs.date).toLocaleDateString() : "N/A"}
+            {blog.date ? new Date(blog.date).toLocaleDateString() : "N/A"}
           </Card.Text>
         </Card.Body>
       </Card>
@@ -176,6 +172,8 @@ const SinglePage = () => {
         </Card.Body>
       </Card>
     );
+  } else {
+    content = <p>No content available for this {type}.</p>;
   }
 
   return <Container className="single-page-container">{content}</Container>;

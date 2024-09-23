@@ -12,13 +12,13 @@ const LandingPage = () => {
   const dispatch = useDispatch();
 
   const videoList = useSelector((state) => state.videoList);
-  const { videos, loading: videoLoading } = videoList;
+  const { videos = [], loading: videoLoading } = videoList; // Default to empty array
 
   const recipeList = useSelector((state) => state.recipeList);
-  const { recipes, loading: recipeLoading } = recipeList;
+  const { recipes = [], loading: recipeLoading } = recipeList; // Default to empty array
 
   const blogList = useSelector((state) => state.blogList);
-  const { blogs, loading: blogLoading } = blogList;
+  const { blogs = [], loading: blogLoading } = blogList; // Default to empty array
 
   useEffect(() => {
     dispatch(fetchVideos());
@@ -34,6 +34,21 @@ const LandingPage = () => {
     console.log(`Toggled favorite for ${type} with ID:`, id);
   };
 
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text;
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   return (
     <div className="landing-page">
       <img src={bannerImg} alt="Banner" className="banner-image" />
@@ -43,6 +58,7 @@ const LandingPage = () => {
       </p>
       <p>Explore our rich collection and find your next favorite dish!</p>
 
+      {/* Recent Videos */}
       <div className="section">
         <h2 className="section-title">Most Recent Videos</h2>
         {videoLoading ? (
@@ -52,7 +68,7 @@ const LandingPage = () => {
         ) : recentVideos.length === 0 ? (
           <p className="coming-soon">Coming Soon!</p>
         ) : (
-          <Carousel>
+          <Carousel className="custom-carousel">
             {recentVideos.map((video) => (
               <Carousel.Item key={video._id}>
                 <div className="video-item">
@@ -73,6 +89,7 @@ const LandingPage = () => {
 
       <hr className="section-divider" />
 
+      {/* Recent Recipes */}
       <div className="section">
         <h2 className="section-title">Most Recent Recipes</h2>
         {recipeLoading ? (
@@ -87,9 +104,9 @@ const LandingPage = () => {
               <Card key={recipe._id} className="recipe-card">
                 <Card.Body>
                   <Card.Title>{recipe.title}</Card.Title>
-                  <Card.Text>{recipe.description}</Card.Text>
+                  <Card.Text>{truncateText(recipe.description, 100)}</Card.Text>
                   <Button
-                    href={`/recipe/${recipe._id}`}
+                    href={`/recipes/${recipe._id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -114,6 +131,7 @@ const LandingPage = () => {
 
       <hr className="section-divider" />
 
+      {/* Recent Blogs */}
       <div className="section">
         <h2 className="section-title">Most Recent Blogs</h2>
         {blogLoading ? (
@@ -126,26 +144,37 @@ const LandingPage = () => {
           <div className="card-container">
             {recentBlogs.map((blog) => (
               <Card key={blog._id} className="blog-card">
+                <div className="blog-image-overlay">
+                  <Card.Img
+                    variant="top"
+                    src={blog.image}
+                    className="blog-image"
+                  />
+                  <div className="image-overlay-content">
+                    <h3>{blog.title}</h3>
+                  </div>
+                </div>
                 <Card.Body>
-                  <Card.Title>{blog.title}</Card.Title>
-                  <Card.Text>{blog.content}</Card.Text>
-                  <Button
-                    href={`/blog/${blog._id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Read Blog
-                  </Button>
+                  <Card.Text>{truncateText(blog.content, 150)}</Card.Text>
                 </Card.Body>
                 <Card.Footer className="d-flex justify-content-between align-items-center">
-                  <span>{blog.date}</span>
-                  <Button
-                    variant="link"
-                    className="p-0"
-                    onClick={() => handleFavoriteToggle(blog._id, "blog")}
-                  >
-                    <AiOutlineStar size={24} />
-                  </Button>
+                  <span>{formatDate(blog.date)}</span>
+                  <div className="footer-button">
+                    <Button
+                      href={`/blogs/${blog._id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read Blog
+                    </Button>
+                    <Button
+                      variant="link"
+                      className="p-0"
+                      onClick={() => handleFavoriteToggle(blog._id, "blog")}
+                    >
+                      <AiOutlineStar size={24} />
+                    </Button>
+                  </div>
                 </Card.Footer>
               </Card>
             ))}

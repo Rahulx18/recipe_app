@@ -55,7 +55,7 @@ html {
   flex: 1;
   overflow-y: auto;
   background-color: #fff; /* Linen */
-  color: #333333; /* Onyx */
+  color: #fff; /* Onyx */
 }
 
 .content-container.closed {
