@@ -6,6 +6,7 @@ const videoRoutes = require("./3_routes/videoRoutes");
 const searchRoutes = require("./3_routes/searchRoutes");
 const authRoutes = require("./3_routes/authRoutes");
 const adminRoutes = require("./3_routes/adminRoutes");
+const commentRoutes = require("./3_routes/commentRoutes");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
@@ -41,6 +42,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/comments", commentRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

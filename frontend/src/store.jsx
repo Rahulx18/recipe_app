@@ -4,6 +4,7 @@ import { searchReducer } from "./reducers/searchReducer";
 import recipeReducer from "./reducers/recipeReducer";
 import videoReducer from "./reducers/videoReducer";
 import authReducer from "./reducers/authReducer";
+import commentReducer from "./reducers/commentReducer";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     recipeList: recipeReducer,
     videoList: videoReducer,
     auth: authReducer,
+    comments: commentReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 });

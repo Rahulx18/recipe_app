@@ -72,7 +72,7 @@ const Recipes = () => {
           </div>
         ))
       ) : (
-        <p style={{ color: "#333" }}>No recipes found.</p>
+        <p style={{ color: "#fff" }}>No recipes found.</p>
       )}
     </Container>
   );

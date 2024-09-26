@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaSearch, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Container, Navbar } from "react-bootstrap";
 import SearchOverlay from "../../utility/SearchOverlay";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/authActions";
 import "./Header.css";
@@ -29,9 +29,11 @@ const Header = ({ isSidebarOpen }) => {
     <header className="header-container">
       <Navbar className={`header ${isSidebarOpen ? "open" : "closed"}`}>
         <Container>
-          <div className="logo">
+          <Link to="/" className="logo">
+            {" "}
+            {/* Make logo clickable */}
             <img src={logo} alt="Udta Rasoiya Logo" />
-          </div>
+          </Link>
           <div className="right-section">
             <button
               className="search-button"

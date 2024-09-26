@@ -46,7 +46,11 @@ html {
   background-color: #fff;
   transition: left 0.3s ease, width 0.3s ease;
 }
-
+.main-content {
+  background-color: #333;
+  border-radius: 1rem;
+  padding: 1rem;
+}
 .content-container {
   margin-left: 5rem;
   margin-top: 6rem;
