@@ -28,7 +28,7 @@ export const fetchComments = (id, type) => async (dispatch) => {
       `${API_URL}/comments/${id}/${type}`,
       config
     );
-
+    console.log(data);
     dispatch({
       type: FETCH_COMMENTS_SUCCESS,
       payload: data,
@@ -71,7 +71,7 @@ export const addComment =
         commentData,
         config
       );
-
+      console.log(data);
       dispatch({
         type: ADD_COMMENT_SUCCESS,
         payload: data,

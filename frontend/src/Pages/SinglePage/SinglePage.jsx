@@ -254,11 +254,12 @@ const SinglePage = () => {
                 <Card key={comment._id} className="text-dark mb-2">
                   <Card.Body>
                     <Card.Text>
-                      <strong>{comment.userInfo || "Anonymous"}:</strong>{" "}
+                      <strong>{comment.user?.username || "Anonymous"}:</strong>{" "}
                       {comment.text}
                     </Card.Text>
 
-                    {comment.user === userInfo._id && ( // Check against userInfo._id
+                    {(comment.user?._id === (userInfo ? userInfo._id : null) ||
+                      userInfo?.isAdmin) && (
                       <Button
                         variant="danger"
                         size="sm"

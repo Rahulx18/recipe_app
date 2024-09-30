@@ -4,7 +4,9 @@ const Comment = require("../1_models/Comment");
 const fetchComments = asyncHandler(async (req, res) => {
   const { postId, type } = req.params;
 
-  const comments = await Comment.find({ postId, type }).sort({ createdAt: -1 });
+  const comments = await Comment.find({ postId, type })
+    .sort({ createdAt: -1 })
+    .populate("user", "username isAdmin"); // Populating the user field with only the username
 
   res.json(comments);
 });

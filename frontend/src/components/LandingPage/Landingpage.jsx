@@ -9,17 +9,17 @@ import { fetchVideos } from "../../actions/videoActions";
 import bannerImg from "../../BANNER_FINAL_3.png";
 
 const LandingPage = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [favorites, setFavorites] = useState({}); // State to store favorite items by ID
   const dispatch = useDispatch();
 
   const videoList = useSelector((state) => state.videoList);
-  const { videos = [], loading: videoLoading } = videoList; // Default to empty array
+  const { videos = [], loading: videoLoading } = videoList;
 
   const recipeList = useSelector((state) => state.recipeList);
-  const { recipes = [], loading: recipeLoading } = recipeList; // Default to empty array
+  const { recipes = [], loading: recipeLoading } = recipeList;
 
   const blogList = useSelector((state) => state.blogList);
-  const { blogs = [], loading: blogLoading } = blogList; // Default to empty array
+  const { blogs = [], loading: blogLoading } = blogList;
 
   useEffect(() => {
     dispatch(fetchVideos());
@@ -32,7 +32,10 @@ const LandingPage = () => {
   const recentBlogs = [...blogs].slice(0, 8);
 
   const handleFavoriteToggle = (id, type) => {
-    setIsFavorite(!isFavorite); // Toggle favorite state
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [id]: !prevFavorites[id], // Toggle the favorite state for the specific item by ID
+    }));
     console.log(`Toggled favorite for ${type} with ID:`, id);
   };
 
@@ -122,7 +125,7 @@ const LandingPage = () => {
                     className="p-0"
                     onClick={() => handleFavoriteToggle(recipe._id, "recipe")}
                   >
-                    {isFavorite ? (
+                    {favorites[recipe._id] ? (
                       <FaStar color="gold" size={24} />
                     ) : (
                       <FaRegStar color="gold" size={24} />
@@ -177,7 +180,7 @@ const LandingPage = () => {
                       className="p-0"
                       onClick={() => handleFavoriteToggle(blog._id, "blog")}
                     >
-                      {isFavorite ? (
+                      {favorites[blog._id] ? (
                         <FaStar color="gold" size={24} />
                       ) : (
                         <FaRegStar color="gold" size={24} />
