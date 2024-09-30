@@ -4,19 +4,35 @@ import { useParams } from "react-router-dom";
 import { fetchBlogById } from "../../actions/blogActions";
 import { fetchRecipeById } from "../../actions/recipeActions";
 import { fetchVideoById } from "../../actions/videoActions";
-import { fetchComments, addComment } from "../../actions/commentActions";
-import { Container, Card, Button, Spinner, Form, Col } from "react-bootstrap";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import {
+  fetchComments,
+  addComment,
+  deleteComment,
+} from "../../actions/commentActions";
+import { Container, Card, Button, Spinner, Form, Modal } from "react-bootstrap";
 import "../Common.css";
+import { FaStar, FaRegStar } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 const SinglePage = () => {
   const { id, type } = useParams();
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [loadingComments, setLoadingComments] = useState(true); // State for loading comments
-  const [errorComments, setErrorComments] = useState(null); // State for comments error
+  const [loadingComments, setLoadingComments] = useState(true);
+  const [errorComments, setErrorComments] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState(null);
+
+  const auth = useSelector((state) => state.auth);
+  const { userInfo } = auth;
+
+  // Toggle favorite function
+  const handleFavoriteToggle = (id, type) => {
+    setIsFavorite(!isFavorite); // Toggle favorite state
+    console.log(`Toggled favorite for ${type} with ID:`, id);
+  };
 
   useEffect(() => {
     if (type === "videos") {
@@ -27,7 +43,6 @@ const SinglePage = () => {
       dispatch(fetchRecipeById(id));
     }
 
-    // Fetch comments and handle loading/error states
     const fetchAndHandleComments = async () => {
       try {
         await dispatch(fetchComments(id, type));
@@ -73,6 +88,22 @@ const SinglePage = () => {
     }
   };
 
+  const handleDeleteComment = (commentId) => {
+    setCommentToDelete(commentId);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteComment = () => {
+    dispatch(deleteComment(commentToDelete));
+    setShowDeleteModal(false);
+    setCommentToDelete(null);
+  };
+
+  const cancelDeleteComment = () => {
+    setShowDeleteModal(false);
+    setCommentToDelete(null);
+  };
+
   if (loadingContent) {
     return <Spinner animation="border" />;
   }
@@ -95,7 +126,21 @@ const SinglePage = () => {
           />
         </Card.Header>
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
+          <div className="d-flex justify-content-between">
+            <Card.Title>{title}</Card.Title>
+            {/* Favorite star button */}
+            <Button
+              variant="link"
+              onClick={() => handleFavoriteToggle(id, type)}
+              className="p-0"
+            >
+              {isFavorite ? (
+                <FaStar color="gold" size={24} />
+              ) : (
+                <FaRegStar color="gold" size={24} />
+              )}
+            </Button>
+          </div>
           <Card.Text>{description}</Card.Text>
           <Card.Text>
             <strong>Published on:</strong>{" "}
@@ -107,27 +152,35 @@ const SinglePage = () => {
   } else if (type === "blogs" && blog) {
     content = (
       <Card className="text-white bg-dark single-page-card">
-        <Col className="d-flex justify-content-center align-items-center">
-          {blog.image && (
-            <Card.Img
-              src={blog.image}
-              alt={blog.title}
-              style={{
-                width: "auto",
-                maxHeight: "40vh",
-                objectFit: "cover",
-              }}
-            />
-          )}
-        </Col>
+        {blog.image && (
+          <Card.Img
+            src={blog.image}
+            alt={blog.title}
+            style={{
+              width: "auto",
+              maxHeight: "40vh",
+              objectFit: "cover",
+            }}
+          />
+        )}
 
         <Card.Body>
-          <Card.Title>{blog.title}</Card.Title>
-          <Card.Text>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {blog.content}
-            </ReactMarkdown>
-          </Card.Text>
+          <div className="d-flex justify-content-between">
+            <Card.Title>{blog.title}</Card.Title>
+            {/* Favorite star button */}
+            <Button
+              variant="link"
+              onClick={() => handleFavoriteToggle(id, type)}
+              className="p-0"
+            >
+              {isFavorite ? (
+                <FaStar color="gold" size={24} />
+              ) : (
+                <FaRegStar color="gold" size={24} />
+              )}
+            </Button>
+          </div>
+          <Card.Text>{blog.content}</Card.Text>
           <Card.Text>
             Published on:{" "}
             {blog.date ? new Date(blog.date).toLocaleDateString() : "N/A"}
@@ -142,14 +195,27 @@ const SinglePage = () => {
           <Card.Img src={recipes.thumbnail} alt={recipes.title} />
         )}
         <Card.Body>
-          <Card.Title>{recipes.title}</Card.Title>
+          <div className="d-flex justify-content-between">
+            <Card.Title>{recipes.title}</Card.Title>
+            {/* Favorite star button */}
+            <Button
+              variant="link"
+              onClick={() => handleFavoriteToggle(id, type)}
+              className="p-0"
+            >
+              {isFavorite ? (
+                <FaStar color="gold" size={24} />
+              ) : (
+                <FaRegStar color="gold" size={24} />
+              )}
+            </Button>
+          </div>
           <Card.Text>{recipes.description}</Card.Text>
           <Card.Text>Ingredients: {recipes.ingredients.join(", ")}</Card.Text>
           {recipes.videoURL && (
             <Button
               variant="primary"
               href={recipes.videoURL}
-              target="_blank"
               rel="noopener noreferrer"
             >
               Watch Recipe Video
@@ -188,9 +254,23 @@ const SinglePage = () => {
                 <Card key={comment._id} className="text-dark mb-2">
                   <Card.Body>
                     <Card.Text>
-                      <strong>{comment.user || "Anonymous"}:</strong>{" "}
+                      <strong>{comment.userInfo || "Anonymous"}:</strong>{" "}
                       {comment.text}
                     </Card.Text>
+
+                    {comment.user === userInfo._id && ( // Check against userInfo._id
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        className="float-right"
+                        onClick={() => {
+                          setCommentToDelete(comment._id);
+                          setShowDeleteModal(true);
+                        }}
+                      >
+                        <FaTrash /> {/* Trash icon */}
+                      </Button>
+                    )}
                   </Card.Body>
                 </Card>
               ))}
@@ -202,18 +282,35 @@ const SinglePage = () => {
           <Form onSubmit={handleAddComment} className="mt-3">
             <Form.Group controlId="newComment">
               <Form.Control
-                type="text"
-                placeholder="Add a comment"
+                as="textarea"
+                rows={3}
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
+                placeholder="Add a comment..."
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-2">
+            <Button variant="primary" type="submit">
               Add Comment
             </Button>
           </Form>
         </div>
       )}
+
+      {/* Delete Comment Confirmation Modal */}
+      <Modal show={showDeleteModal} onHide={cancelDeleteComment}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this comment?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={cancelDeleteComment}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDeleteComment}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

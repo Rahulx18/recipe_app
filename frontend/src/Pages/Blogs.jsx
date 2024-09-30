@@ -61,9 +61,6 @@ const Blogs = () => {
                       <Card.Text className="text-small text-truncate">
                         {blog.content.substring(0, 60)}...
                       </Card.Text>
-                      <Card.Text>
-                        <small className="text-muted">By {blog.author}</small>
-                      </Card.Text>
                     </div>
                   </Card.ImgOverlay>
                 </Card>

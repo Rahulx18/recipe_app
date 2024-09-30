@@ -1,34 +1,49 @@
+const asyncHandler = require("express-async-handler");
 const Comment = require("../1_models/Comment");
 
-// Fetch comments for a specific post
-const fetchComments = async (req, res) => {
+const fetchComments = asyncHandler(async (req, res) => {
   const { postId, type } = req.params;
 
-  try {
-    const comments = await Comment.find({ postId, type });
-    res.json(comments);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching comments" });
-  }
-};
+  const comments = await Comment.find({ postId, type }).sort({ createdAt: -1 });
 
-// Add a new comment
-const addComment = async (req, res) => {
-  const { postId, type } = req.params;
+  res.json(comments);
+});
+
+const addComment = asyncHandler(async (req, res) => {
   const { text } = req.body;
+  const { postId, type } = req.params;
 
-  const newComment = new Comment({
+  if (!text) {
+    res.status(400);
+    throw new Error("Comment text is required");
+  }
+
+  const comment = await Comment.create({
     text,
     postId,
     type,
+    user: req.user._id,
   });
-  console.log(text, postId, type);
-  try {
-    const savedComment = await newComment.save();
-    res.status(201).json(savedComment);
-  } catch (error) {
-    res.status(500).json({ message: "Error adding comment" });
-  }
-};
 
-module.exports = { fetchComments, addComment };
+  res.status(201).json(comment);
+});
+
+const deleteComment = asyncHandler(async (req, res) => {
+  const comment = await Comment.findById(req.params.commentId);
+
+  if (!comment) {
+    res.status(404);
+    throw new Error("Comment not found");
+  }
+
+  if (comment.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("Not authorized to delete this comment");
+  }
+
+  await Comment.deleteOne({ _id: req.params.commentId });
+
+  res.json({ message: "Comment removed" });
+});
+
+module.exports = { fetchComments, addComment, deleteComment };

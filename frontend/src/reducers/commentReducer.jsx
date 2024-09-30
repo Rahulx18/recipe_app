@@ -5,12 +5,16 @@ import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
   ADD_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
 } from "../constants";
 
 const initialState = {
   comments: [],
   loading: false,
   addingComment: false, // Separate loading state for adding comments
+  deletingComment: false, // Separate loading state for deleting comments
   error: null,
 };
 
@@ -33,6 +37,19 @@ const commentReducer = (state = initialState, action) => {
       };
     case ADD_COMMENT_FAILURE:
       return { ...state, addingComment: false, error: action.payload };
+
+    case DELETE_COMMENT_REQUEST:
+      return { ...state, deletingComment: true };
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        deletingComment: false,
+        comments: state.comments.filter(
+          (comment) => comment._id !== action.payload
+        ),
+      };
+    case DELETE_COMMENT_FAILURE:
+      return { ...state, deletingComment: false, error: action.payload };
 
     default:
       return state;

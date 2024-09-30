@@ -13,7 +13,7 @@ const Footer = ({ isSidebarOpen }) => {
           <Col md={6}>
             <h5>About Us</h5>
             <p>
-              FoodWeb is a platform where you can explore various recipes,
+              Udta Rasoiya is a platform where you can explore various recipes,
               blogs, and videos related to food. Join our journey to explore
               vegan recipes and much more!
             </p>

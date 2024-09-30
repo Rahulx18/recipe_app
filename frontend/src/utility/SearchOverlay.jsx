@@ -105,7 +105,7 @@ const SearchOverlay = ({ Close }) => {
                           </p>
                           <a
                             className="search-overlay__item-link"
-                            href={`/blog/${blog._id}`}
+                            href={`/blogs/${blog._id}`}
                           >
                             Read Blog
                           </a>
@@ -131,7 +131,7 @@ const SearchOverlay = ({ Close }) => {
                           </p>
                           <a
                             className="search-overlay__item-link"
-                            href={video.videoURL}
+                            href={`/videos/${video._id}`}
                           >
                             Watch Video
                           </a>

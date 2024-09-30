@@ -6,11 +6,14 @@ import {
   ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
   ADD_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
 } from "../constants";
 
 const API_URL = import.meta.env.VITE_PROD_URL;
 
-// Function to fetch comments for a specific blog, recipe, or video by ID
+// Fetch comments
 export const fetchComments = (id, type) => async (dispatch) => {
   dispatch({ type: FETCH_COMMENTS_REQUEST });
 
@@ -21,9 +24,8 @@ export const fetchComments = (id, type) => async (dispatch) => {
       },
     };
 
-    // Adjusted URL based on specified API structure
     const { data } = await axios.get(
-      `${API_URL}/comments/${id}/${type}`, // Corrected URL format
+      `${API_URL}/comments/${id}/${type}`,
       config
     );
 
@@ -39,7 +41,7 @@ export const fetchComments = (id, type) => async (dispatch) => {
   }
 };
 
-// Function to add a new comment for a specific blog, recipe, or video by ID
+// Add a comment (only for logged-in users)
 export const addComment =
   (id, type, commentData) => async (dispatch, getState) => {
     dispatch({ type: ADD_COMMENT_REQUEST });
@@ -48,24 +50,25 @@ export const addComment =
       auth: { userInfo },
     } = getState();
 
-    // Add user field to commentData
-    const dataToSend = {
-      ...commentData,
-      user: userInfo ? userInfo.name : "Anonymous",
-    };
+    if (!userInfo) {
+      dispatch({
+        type: ADD_COMMENT_FAILURE,
+        payload: "You must be logged in to comment.",
+      });
+      return;
+    }
 
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: userInfo ? `Bearer ${userInfo.token}` : undefined,
+          Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
-      // Adjusted URL based on specified API structure
       const { data } = await axios.post(
-        `${API_URL}/comments/${id}/${type}`, // Corrected URL format
-        dataToSend,
+        `${API_URL}/comments/${id}/${type}`,
+        commentData,
         config
       );
 
@@ -80,3 +83,40 @@ export const addComment =
       });
     }
   };
+
+// Delete a comment (only for the owner of the comment)
+export const deleteComment = (commentId) => async (dispatch, getState) => {
+  dispatch({ type: DELETE_COMMENT_REQUEST });
+
+  const {
+    auth: { userInfo },
+  } = getState();
+
+  if (!userInfo) {
+    dispatch({
+      type: DELETE_COMMENT_FAILURE,
+      payload: "You must be logged in to delete comments.",
+    });
+    return;
+  }
+
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`${API_URL}/comments/${commentId}`, config);
+
+    dispatch({
+      type: DELETE_COMMENT_SUCCESS,
+      payload: commentId,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_COMMENT_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};

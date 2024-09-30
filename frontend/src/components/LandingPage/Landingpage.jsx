@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Button, Carousel, Spinner } from "react-bootstrap";
-import { AiOutlineStar } from "react-icons/ai";
+import { FaStar, FaRegStar } from "react-icons/fa";
 import "./Landingpage.css";
 import { fetchRecipes } from "../../actions/recipeActions";
 import { fetchBlogs } from "../../actions/blogActions";
@@ -9,6 +9,7 @@ import { fetchVideos } from "../../actions/videoActions";
 import bannerImg from "../../BANNER_FINAL_3.png";
 
 const LandingPage = () => {
+  const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
 
   const videoList = useSelector((state) => state.videoList);
@@ -31,6 +32,7 @@ const LandingPage = () => {
   const recentBlogs = [...blogs].slice(0, 8);
 
   const handleFavoriteToggle = (id, type) => {
+    setIsFavorite(!isFavorite); // Toggle favorite state
     console.log(`Toggled favorite for ${type} with ID:`, id);
   };
 
@@ -120,7 +122,11 @@ const LandingPage = () => {
                     className="p-0"
                     onClick={() => handleFavoriteToggle(recipe._id, "recipe")}
                   >
-                    <AiOutlineStar size={24} />
+                    {isFavorite ? (
+                      <FaStar color="gold" size={24} />
+                    ) : (
+                      <FaRegStar color="gold" size={24} />
+                    )}
                   </Button>
                 </Card.Footer>
               </Card>
@@ -162,7 +168,6 @@ const LandingPage = () => {
                   <div className="footer-button">
                     <Button
                       href={`/blogs/${blog._id}`}
-                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       Read Blog
@@ -172,7 +177,11 @@ const LandingPage = () => {
                       className="p-0"
                       onClick={() => handleFavoriteToggle(blog._id, "blog")}
                     >
-                      <AiOutlineStar size={24} />
+                      {isFavorite ? (
+                        <FaStar color="gold" size={24} />
+                      ) : (
+                        <FaRegStar color="gold" size={24} />
+                      )}
                     </Button>
                   </div>
                 </Card.Footer>

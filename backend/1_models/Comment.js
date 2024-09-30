@@ -3,16 +3,21 @@ const mongoose = require("mongoose");
 const CommentSchema = new mongoose.Schema({
   text: {
     type: String,
-    required: true, // Ensure this is set correctly
+    required: true,
   },
   postId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Blog", // Or the appropriate reference model
+    ref: "Post",
   },
   type: {
     type: String,
-    required: true, // Adjust based on your needs
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
   },
   createdAt: {
     type: Date,
